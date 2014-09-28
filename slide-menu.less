@@ -1,0 +1,112 @@
+@gray-darker:            lighten(#000, 13.5%); // #222
+@gray-dark:              lighten(#000, 20%);   // #333
+@gray:                   lighten(#000, 33.5%); // #555
+@gray-light:             lighten(#000, 46.7%); // #777
+@gray-lighter:           lighten(#000, 93.5%); // #eee
+
+
+.transition(@transition) {
+  -webkit-transition: @transition;
+       -o-transition: @transition;
+          transition: @transition;
+}
+
+.translate(@x; @y) {
+  -webkit-transform: translate(@x, @y);
+      -ms-transform: translate(@x, @y); // IE9 only
+       -o-transform: translate(@x, @y);
+          transform: translate(@x, @y);
+}
+
+@screen-xs: 420px;
+
+@slide-transition: all 0.2s ease-in;
+
+.translate(@x; @y) {
+	-webkit-transform: translate(@x, @y);
+			-ms-transform: translate(@x, @y); // IE9 only
+			-o-transform: translate(@x, @y);
+					transform: translate(@x, @y);
+}
+
+body {
+	overflow-x: hidden;
+}
+.slide-menu-toggle {
+	display: none;
+	background-color: transparent;
+	border: 1px solid #999;
+	border-radius: 4px;
+	padding: 5px 10px;
+	margin: 5px;
+	font-size: 24px;
+	line-height: 1;
+
+	@media (max-width: @screen-xs){
+		display: block;
+	}
+	&.left {
+		float: left;
+	}
+	&.right {
+		float: right;
+	}
+}
+#slide-menu {
+	.transition(@slide-transition);
+	background-color: @gray-darker;
+	width: 250px;
+	position: absolute;
+	left: 100%;
+	&.right {
+		.translate(0; 0);
+		&.move {
+			.translate(-250px; 0);
+		}
+	}
+	&.left {
+		.translate(-250px; 0);
+		&.move {
+			.translate(0; 0);
+		}
+	}
+
+	ul {
+		margin: 0;
+		padding: 0;
+		> li {
+			list-style: none;
+			> a {
+				display: block;
+				padding: 24px;
+				line-height: 1;
+				color: @gray-lighter;
+				border-top: 1px solid @gray-dark;
+				text-decoration: none;
+				&:hover {
+					text-decoration: none;
+					background-color: @gray-dark;
+				}
+			}
+		}
+	}
+
+}
+#page-wrap {
+	max-width: 100%;
+	.translate(0; 0);
+	.transition(@slide-transition);
+
+	&.move {
+		.transition(@slide-transition);
+		position: fixed;
+		&.right {
+			.translate(-250px; 0);
+		}
+
+		&.left {
+			.translate(250px; 0);
+		}
+
+	}
+}
